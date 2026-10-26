@@ -1,0 +1,4 @@
+fastapi>=0.110
+uvicorn[standard]>=0.27
+python-multipart>=0.0.18
+chuck-gpu @ git+https://github.com/pkircher29/chuck-gpu@e8e91e07be5b17fc464701035a4f5cc547c2530d

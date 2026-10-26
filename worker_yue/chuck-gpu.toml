@@ -1,0 +1,18 @@
+# Cloud image for the YuE2 cover engine (melody transcription + re-performance)
+gpu = "L40S"
+image = "nvidia/cuda:12.8.1-cudnn-runtime-ubuntu24.04"
+add_python = "3.12"
+apt = ["git", "ffmpeg", "libsndfile1", "curl"]
+setup = [
+  "pip install --no-cache-dir uv==0.8.17",
+  "uv venv /opt/yue --python 3.12 && uv pip install --python /opt/yue/bin/python 'yue2-infer @ git+https://github.com/multimodal-art-projection/YuE@1647252d68b70cbead046ffd3f7caf036dde47ee'",
+  "uv venv /opt/sheetsage --python 3.11 && uv pip install --python /opt/sheetsage/bin/python huggingface-hub==0.36.0",
+  "/opt/sheetsage/bin/huggingface-cli download m-a-p/SheetSage2 --local-dir /opt/sheetsage/model",
+  "uv pip install --python /opt/sheetsage/bin/python torch==2.8.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cu126",
+  "uv pip install --python /opt/sheetsage/bin/python -r /opt/sheetsage/model/requirements.txt",
+  "/opt/yue/bin/python -c 'import yue2, torch; print(torch.__version__)'",
+]
+cpu = 4
+memory = 32768
+timeout = 3600
+exclude = ["cache"]
