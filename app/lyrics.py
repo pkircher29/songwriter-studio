@@ -15,7 +15,7 @@ import urllib.parse
 import urllib.request
 
 API = "https://lrclib.net/api/search"
-UA = "Houseband/1.0 (https://github.com/pkircher29/houseband)"
+UA = "SongwriterStudio/1.0 (https://github.com/pkircher29/songwriter-studio)"
 MAX_DURATION_GAP = 8.0   # seconds; a different edit of the song beyond this
 
 

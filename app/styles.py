@@ -17,7 +17,7 @@ from pathlib import Path
 
 ORIGINAL = "original"
 ROOT = Path(__file__).resolve().parent.parent
-DATA = Path(os.environ.get("HOUSEBAND_DATA", ROOT / "data"))
+DATA = Path(os.environ.get("SONGWRITER_STUDIO_DATA", ROOT / "data"))
 CUSTOM_FILE = DATA / "custom_styles.json"
 
 STYLES = [

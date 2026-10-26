@@ -1,10 +1,10 @@
-# Houseband
+# Songwriter Studio
 
 **Hear it out.**
 
 You wrote a song. You can play it — one voice and a guitar or a piano, recorded
 on your phone at the kitchen table. You can hear the finished version in your
-head; you just can't hear it out loud. Houseband is the band. Drop the demo,
+head; you just can't hear it out loud. Songwriter Studio is the band. Drop the demo,
 pick a style, and hear your song played back by a full band and a singer, with
 your melody and your words. Try it as Bluegrass, Synthwave, Gospel Choir,
 Nu Metal… 36 styles, or describe your own, and keep the take that sounds like
@@ -14,7 +14,7 @@ What it is, and isn't:
 
 - **It plays your song.** The melody is transcribed from your demo and fixed;
   the words are yours (typed in, transcribed from your demo, or looked up if
-  the song is published). Houseband never writes a song or a lyric for you.
+  the song is published). Songwriter Studio never writes a song or a lyric for you.
 - **Takes are sketches for deciding**, not a finished master: does this song
   want to be a waltz or a stomp, a choir or one voice? Hear it before you book
   a studio or a band.
@@ -23,9 +23,9 @@ What it is, and isn't:
 
 Two editions:
 
-- **Houseband** (this repo): the desktop app. You bring the compute — your own
+- **Songwriter Studio** (this repo): the desktop app. You bring the compute — your own
   Modal account, or your own NVIDIA GPU.
-- **Houseband Cloud**: a hosted edition on our GPUs, in private development.
+- **Songwriter Studio Cloud**: a hosted edition on our GPUs, in private development.
 
 ## Use it
 
@@ -41,13 +41,13 @@ Two editions:
 ### Install
 
 ```
-git clone https://github.com/pkircher29/houseband
-cd houseband
+git clone https://github.com/pkircher29/songwriter-studio
+cd songwriter-studio
 py -3.12 -m venv .venv                  # Linux/macOS: python3.12 -m venv .venv
 .venv\Scripts\python -m pip install -r requirements.txt
 ```
 
-Needs `ffmpeg`/`ffprobe` on PATH. Then double-click **`Houseband.bat`**
+Needs `ffmpeg`/`ffprobe` on PATH. Then double-click **`Songwriter Studio.bat`**
 (Windows; starts in the background and opens `http://127.0.0.1:8795`, a second
 double-click just reopens the page) or run `.venv/bin/python app/server.py`.
 
@@ -74,16 +74,16 @@ commit, `/opt/sheetsage` with the SheetSage2 model; the worker expects those
 paths) — then start the app with the local engine:
 
 ```
-HOUSEBAND_ENGINE=local HOUSEBAND_YUE_PYTHON=/opt/yue/bin/python python app/server.py
+SONGWRITER_STUDIO_ENGINE=local SONGWRITER_STUDIO_YUE_PYTHON=/opt/yue/bin/python python app/server.py
 ```
 
 The same worker script runs on your machine; models download into
 `data/cloud-yue/cache/` on the first take. The GPU picker disappears (there is
 only yours).
 
-Settings are environment variables: `HOUSEBAND_DATA` (where songs live,
-default `data/`), `HOUSEBAND_PORT` (8795), `HOUSEBAND_HOST` (127.0.0.1),
-`HOUSEBAND_ENGINE` (`modal` | `local`), `HOUSEBAND_YUE_PYTHON`.
+Settings are environment variables: `SONGWRITER_STUDIO_DATA` (where songs live,
+default `data/`), `SONGWRITER_STUDIO_PORT` (8795), `SONGWRITER_STUDIO_HOST` (127.0.0.1),
+`SONGWRITER_STUDIO_ENGINE` (`modal` | `local`), `SONGWRITER_STUDIO_YUE_PYTHON`.
 
 ## The lyrics editor
 
@@ -130,7 +130,7 @@ Checks: `python tests/check_page.py`, `node --test tests/lyrics-lib.test.cjs`.
 Songwriter tools, in the same spirit (suggest, never author): a coach that
 points at weak spots and asks questions instead of handing over lines, a
 stress-vs-beat prosody check, named versions with A/B, lyric and chord sheet
-export. Houseband Cloud for people who'd rather not set up a GPU.
+export. Songwriter Studio Cloud for people who'd rather not set up a GPU.
 
 ## Licenses
 

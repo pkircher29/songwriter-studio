@@ -1,8 +1,8 @@
-"""Houseband — desktop app: drop a demo, pick a style, hear your song played by a full band.
+"""Songwriter Studio — desktop app: drop a demo, pick a style, hear your song played by a full band.
 
 The heavy lifting (melody transcription, lyric transcription, YuE2) runs on
-a GPU you bring: your own Modal account through chuck-gpu (HOUSEBAND_ENGINE=modal,
-the default) or an NVIDIA GPU on this machine (HOUSEBAND_ENGINE=local). This
+a GPU you bring: your own Modal account through chuck-gpu (SONGWRITER_STUDIO_ENGINE=modal,
+the default) or an NVIDIA GPU on this machine (SONGWRITER_STUDIO_ENGINE=local). This
 process only queues jobs, stages their files, starts the worker, and serves
 the UI and the results.
 
@@ -40,14 +40,14 @@ import lyrics as lyrics_db  # noqa: E402
 import styles  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = Path(os.environ.get("HOUSEBAND_DATA", ROOT / "data"))
+DATA = Path(os.environ.get("SONGWRITER_STUDIO_DATA", ROOT / "data"))
 SONGS = DATA / "songs"
 # Where the GPU work runs. "modal": your own Modal account via chuck-gpu (the
 # worker image is built from worker_yue/chuck-gpu.toml). "local": the same
 # worker script on this machine, Linux/WSL2 with an NVIDIA 24 GB GPU, using
 # the Python env you built for it (see README "Run on your own GPU").
-ENGINE = os.environ.get("HOUSEBAND_ENGINE", "modal")
-LOCAL_PYTHON = os.environ.get("HOUSEBAND_YUE_PYTHON", "/opt/yue/bin/python")
+ENGINE = os.environ.get("SONGWRITER_STUDIO_ENGINE", "modal")
+LOCAL_PYTHON = os.environ.get("SONGWRITER_STUDIO_YUE_PYTHON", "/opt/yue/bin/python")
 # YuE2 engine: worker_yue/ runs in the data/cloud-yue chuck-gpu workspace.
 # (worker/ + data/cloud is the earlier ACE-Step engine, kept for its sweep.)
 CLOUD = DATA / "cloud-yue"
@@ -464,7 +464,7 @@ def stop_sandbox(sandbox_id: str) -> None:
 
 # ── api ─────────────────────────────────────────────────────────────────────
 
-app = FastAPI(title="Houseband")
+app = FastAPI(title="Songwriter Studio")
 
 
 @app.get("/")
@@ -762,15 +762,15 @@ def start_background() -> None:
 
 def main() -> None:
     if sys.stdout is None or sys.stderr is None:
-        # started by pythonw (Houseband.bat): no console, and uvicorn's
+        # started by pythonw (Songwriter Studio.bat): no console, and uvicorn's
         # log setup fails outright without one; keep its output in a file
         DATA.mkdir(parents=True, exist_ok=True)
         log = open(DATA / "server.log", "a", encoding="utf-8", buffering=1)
         sys.stdout = sys.stderr = log
     import uvicorn
     import webbrowser
-    port = int(os.environ.get("HOUSEBAND_PORT", "8795"))
-    host = os.environ.get("HOUSEBAND_HOST", "127.0.0.1")
+    port = int(os.environ.get("SONGWRITER_STUDIO_PORT", "8795"))
+    host = os.environ.get("SONGWRITER_STUDIO_HOST", "127.0.0.1")
     url = f"http://127.0.0.1:{port}"
     with socket.socket() as sock:
         if sock.connect_ex(("127.0.0.1", port)) == 0:   # already running: just show it
